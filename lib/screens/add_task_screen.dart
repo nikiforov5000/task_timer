@@ -22,6 +22,28 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Duration _duration = Duration(seconds: 0);
   Color _color = TaskColors.getRandomColor();
 
+  void onAddTaskCallback() {
+    if (_duration == Duration(seconds: 0)) {
+      _showMyDialog(context, 'Please enter duration');
+    } else if (newTaskName == '') {
+      _showMyDialog(context, 'Please enter task name');
+    } else {
+      newTask = Task(
+        name: newTaskName,
+        timeTotal: _duration,
+        timeLeft: _duration,
+        color: _color.value,
+      );
+      Provider.of<TaskData>(context, listen: false)
+          .addNewTask(newTask);
+      box.put(TaskId.getId(), newTask);
+      print(box.length);
+      print(box.keys.first);
+      print(box.keys.last);
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,27 +87,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               AddTaskScreenButton(
                 label: 'Add Task',
                 color: _color,
-                onTap: () {
-                  if (_duration == Duration(seconds: 0)) {
-                    _showMyDialog(context, 'Please enter duration');
-                  } else if (newTaskName == '') {
-                    _showMyDialog(context, 'Please enter task name');
-                  } else {
-                    newTask = Task(
-                      name: newTaskName,
-                      timeTotal: _duration,
-                      timeLeft: _duration,
-                      color: _color.value,
-                    );
-                    Provider.of<TaskData>(context, listen: false)
-                        .addNewTask(newTask);
-                    box.put(TaskId.getId(), newTask);
-                    print(box.length);
-                    print(box.keys.first);
-                    print(box.keys.last);
-                    Navigator.pop(context);
-                  }
-                },
+                onTap: onAddTaskCallback,
               ),
               SizedBox(
                 width: 10,
