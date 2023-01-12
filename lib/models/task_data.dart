@@ -4,8 +4,10 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:random_string_generator/random_string_generator.dart';
 
+import '../main.dart';
 import 'task.dart';
 
 class TaskData extends ChangeNotifier {
@@ -34,6 +36,14 @@ class TaskData extends ChangeNotifier {
 
   void addNewTask(Task task) {
     _tasks.add(task);
+    box.add(task);
+    
+    int indexAtTasks = _tasks.indexOf(task);
+    Task lastTaskFromBox = box.getAt(box.length - 1);
+    String lastTaskNameFromBox = lastTaskFromBox.name;
+
+    print('index in _tasks: $indexAtTasks');
+    print('lastTaskNameFromBox: $lastTaskNameFromBox');
     notifyListeners();
   }
 
@@ -49,9 +59,11 @@ class TaskData extends ChangeNotifier {
     return _tasks.length;
   }
 
-  void deleteTask(Task task) {
-    task.isDone = true;
-    _tasks.remove(task);
+  void deleteTask(int index) {
+    // task.isDone = true;
+    // int index = _tasks.indexOf(task);
+    box.deleteAt(index);
+    // _tasks.remove(task);
     notifyListeners();
   }
 
@@ -80,5 +92,11 @@ class TaskData extends ChangeNotifier {
   void setDone(Task task) {
     task.toggleDone();
     task.toggleRun();
+  }
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
   }
 }

@@ -4,6 +4,7 @@ import 'package:totoey/constants.dart';
 import 'package:totoey/screens/add_task_screen.dart';
 import 'package:totoey/widgets/task_list.dart';
 
+import '../main.dart';
 import '../models/task_data.dart';
 
 class TasksScreen extends StatelessWidget {
@@ -44,7 +45,8 @@ class TasksScreen extends StatelessWidget {
                       fontWeight: FontWeight.w100),
                 ),
                 Text(
-                  '${Provider.of<TaskData>(context, listen: true).taskCount} tasks',
+                  '${box.length} tasks',
+                  // '${Provider.of<TaskData>(context, listen: true).taskCount} tasks',
                   style: TextStyle(color: Colors.green, fontSize: 20),
                 ),
               ],

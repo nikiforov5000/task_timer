@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:totoey/constants.dart';
 import 'package:totoey/models/task_data.dart';
 
+import '../main.dart';
 import '../models/task.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         color: _color.value,
       );
       Provider.of<TaskData>(context, listen: false).addNewTask(newTask);
+
       Navigator.pop(context);
     }
   }
