@@ -2,7 +2,7 @@
 import 'main.dart';
 
 class TaskId {
-  static int _id = box.keys.last;
+  static int _id = 0;
 
   static getId() {
     print('getId');

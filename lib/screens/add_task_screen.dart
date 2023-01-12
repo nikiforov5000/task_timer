@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:totoey/constants.dart';
 import 'package:totoey/models/task_data.dart';
 
-import '../main.dart';
 import '../models/task.dart';
-import '../task_id_interface.dart';
 
 class AddTaskScreen extends StatefulWidget {
   @override
@@ -21,6 +17,23 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   Duration _duration = Duration(seconds: 0);
   Color _color = TaskColors.getRandomColor();
+
+  void onAddTaskCallback() {
+    if (_duration == Duration(seconds: 0)) {
+      _showMyDialog(context, 'Please enter duration');
+    } else if (newTaskName == '') {
+      _showMyDialog(context, 'Please enter task name');
+    } else {
+      newTask = Task(
+        name: newTaskName,
+        timeTotal: _duration,
+        timeLeft: _duration,
+        color: _color.value,
+      );
+      Provider.of<TaskData>(context, listen: false).addNewTask(newTask);
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,27 +78,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               AddTaskScreenButton(
                 label: 'Add Task',
                 color: _color,
-                onTap: () {
-                  if (_duration == Duration(seconds: 0)) {
-                    _showMyDialog(context, 'Please enter duration');
-                  } else if (newTaskName == '') {
-                    _showMyDialog(context, 'Please enter task name');
-                  } else {
-                    newTask = Task(
-                      name: newTaskName,
-                      timeTotal: _duration,
-                      timeLeft: _duration,
-                      color: _color.value,
-                    );
-                    Provider.of<TaskData>(context, listen: false)
-                        .addNewTask(newTask);
-                    box.put(TaskId.getId(), newTask);
-                    print(box.length);
-                    print(box.keys.first);
-                    print(box.keys.last);
-                    Navigator.pop(context);
-                  }
-                },
+                onTap: onAddTaskCallback,
               ),
               SizedBox(
                 width: 10,

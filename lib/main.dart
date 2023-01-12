@@ -7,22 +7,9 @@ import 'durationAdapter.dart';
 
 import 'models/task.dart';
 
-late Box box;
 
 Future<void> main() async {
-  await Hive.initFlutter();
-  box = await Hive.openBox('tasksBox');
 
-  Hive.registerAdapter(TaskAdapter());
-  Hive.registerAdapter(DurationAdapter());
-
-  Task task = Task(
-      name: 'name',
-      timeTotal: Duration(seconds: 34),
-      timeLeft: Duration(seconds: 10),
-      color: Colors.red.value);
-
-  box.put(12, task);
 
   runApp(MyApp());
 }
