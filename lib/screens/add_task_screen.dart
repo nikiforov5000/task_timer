@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:totoey/constants.dart';
 import 'package:totoey/models/task_data.dart';
 
-import '../main.dart';
 import '../models/task.dart';
-import '../task_id_interface.dart';
 
 class AddTaskScreen extends StatefulWidget {
   @override
@@ -34,12 +30,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         timeLeft: _duration,
         color: _color.value,
       );
-      Provider.of<TaskData>(context, listen: false)
-          .addNewTask(newTask);
-      box.put(TaskId.getId(), newTask);
-      print(box.length);
-      print(box.keys.first);
-      print(box.keys.last);
+      Provider.of<TaskData>(context, listen: false).addNewTask(newTask);
       Navigator.pop(context);
     }
   }
