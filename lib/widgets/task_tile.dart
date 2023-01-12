@@ -53,11 +53,6 @@ class _TaskTileState extends State<TaskTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onLongPress: widget.onLongPress,
-      // onDoubleTap: () {
-      //   setState(() {
-      //     resetTask();
-      //   });
-      // },
       onTap: () {
         setState(() {
           widget.task.toggleRun();
@@ -132,21 +127,23 @@ class _TaskTileState extends State<TaskTile> {
   }
 
   void toggleButtonIcon() {
-    setState(() {
-      buttonIcon = widget.task.isDone
-          ? null
-          : widget.task.isRunning
-              ? Icon(
-                  Icons.pause,
-                  size: 400,
-                  color: Colors.black.withOpacity(.1),
-                )
-              : Icon(
-                  Icons.play_arrow,
-                  size: 400,
-                  color: Colors.black.withOpacity(.1),
-                );
-    });
+    setState(
+      () {
+        buttonIcon = widget.task.isDone
+            ? null
+            : widget.task.isRunning
+                ? Icon(
+                    Icons.pause,
+                    size: 400,
+                    color: Colors.black.withOpacity(.1),
+                  )
+                : Icon(
+                    Icons.play_arrow,
+                    size: 400,
+                    color: Colors.black.withOpacity(.1),
+                  );
+      },
+    );
   }
 
   void resetTask() {
@@ -169,9 +166,7 @@ class PieChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        // shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(),
       child: PieChart(
         animationDuration: Duration(seconds: 1),
         initialAngleInDegree: 270,
