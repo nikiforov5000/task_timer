@@ -10,7 +10,6 @@ const kEnabledTaskTitleTextStyle = TextStyle(
 );
 
 TextStyle kDisabledTaskTitleTextStyle = kEnabledTaskTitleTextStyle.copyWith(
-  // decoration: TextDecoration.lineThrough,
   color: kSemiLightGreyColor,
 );
 
@@ -37,7 +36,6 @@ const kColorList = <Color>[
 ];
 const kChartColorsList = [
   Color(0xff9C59B1),
-
 ];
 
 const kPiechartCenterTextStyle = TextStyle();
@@ -48,7 +46,7 @@ class TaskColors {
     List<int> colorComponents = [
       random.nextInt(155) + 100, // RED
       random.nextInt(155) + 100, // GREEN
-      random.nextInt(155) + 100   // BLUE
+      random.nextInt(155) + 100 // BLUE
     ];
 
     colorComponents[random.nextInt(3)] %= 50;
@@ -63,7 +61,7 @@ class TaskColors {
 }
 
 BoxShadow kCenterDiscShadow = BoxShadow(
-    color: Colors.black38,
-    offset: Offset(5, 5),
-    blurRadius: 18,
+  color: Colors.black38,
+  offset: Offset(5, 5),
+  blurRadius: 18,
 );

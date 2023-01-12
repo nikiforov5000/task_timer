@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:totoey/constants.dart';
 import 'package:totoey/screens/add_task_screen.dart';
 import 'package:totoey/widgets/task_list.dart';
 
-import '../models/task_data.dart';
+import '../main.dart';
 
 class TasksScreen extends StatelessWidget {
   @override
@@ -44,7 +43,7 @@ class TasksScreen extends StatelessWidget {
                       fontWeight: FontWeight.w100),
                 ),
                 Text(
-                  '${Provider.of<TaskData>(context, listen: true).taskCount} tasks',
+                  '${box.length} tasks',
                   style: TextStyle(color: Colors.green, fontSize: 20),
                 ),
               ],
@@ -64,9 +63,7 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: TasksList(
-                  // taskList: tasks,
-                  ),
+              child: TasksList(),
             ),
           )
         ],
