@@ -1,0 +1,176 @@
+import 'dart:io';
+
+import 'package:duration_picker/duration_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:totoey/constants.dart';
+import 'package:totoey/models/task_data.dart';
+
+import '../main.dart';
+import '../models/task.dart';
+import '../task_id_interface.dart';
+
+class AddTaskScreen extends StatefulWidget {
+  @override
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  String newTaskName = '';
+  late Task newTask;
+
+  Duration _duration = Duration(seconds: 0);
+  Color _color = TaskColors.getRandomColor();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
+      decoration: const BoxDecoration(
+        color: kSemiLightGreyColor,
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 1.5),
+            child: TextField(
+              onChanged: (value) {
+                newTaskName = value;
+              },
+              textAlign: TextAlign.center,
+              autofocus: true,
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.white,
+              ),
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: kLightGreyColor,
+                    )),
+                hintText: 'Enter task name',
+                hintStyle: TextStyle(
+                    color: kLightGreyColor, fontWeight: FontWeight.w100),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              AddTaskScreenButton(
+                label: 'Add Task',
+                color: _color,
+                onTap: () {
+                  if (_duration == Duration(seconds: 0)) {
+                    _showMyDialog(context, 'Please enter duration');
+                  } else if (newTaskName == '') {
+                    _showMyDialog(context, 'Please enter task name');
+                  } else {
+                    newTask = Task(
+                      name: newTaskName,
+                      timeTotal: _duration,
+                      timeLeft: _duration,
+                      color: _color.value,
+                    );
+                    Provider.of<TaskData>(context, listen: false)
+                        .addNewTask(newTask);
+                    box.put(TaskId.getId(), newTask);
+                    print(box.length);
+                    print(box.keys.first);
+                    print(box.keys.last);
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              AddTaskScreenButton(
+                label: 'Change color',
+                color: _color,
+                onTap: () {
+                  setState(() {
+                    _color = TaskColors.getRandomColor();
+                  });
+                },
+              ),
+            ],
+          ),
+          DurationPicker(
+            duration: _duration,
+            onChange: (value) {
+              setState(() {
+                _duration = value;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddTaskScreenButton extends StatelessWidget {
+  const AddTaskScreenButton({
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  final String label;
+  final Color color;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> _showMyDialog(BuildContext context, String message) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
