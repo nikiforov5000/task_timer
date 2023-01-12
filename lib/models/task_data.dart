@@ -32,32 +32,32 @@ class TaskData extends ChangeNotifier {
   //   )
   // ];
   // final List<Task> _tasks = [box.get('firstTask')];
-  final List<Task> _tasks = [];
+  // final List<Task> _tasks = [];
 
   void addNewTask(Task task) {
-    _tasks.add(task);
+    // _tasks.add(task);
     box.add(task);
     
-    int indexAtTasks = _tasks.indexOf(task);
-    Task lastTaskFromBox = box.getAt(box.length - 1);
-    String lastTaskNameFromBox = lastTaskFromBox.name;
-
-    print('index in _tasks: $indexAtTasks');
-    print('lastTaskNameFromBox: $lastTaskNameFromBox');
+    // int indexAtTasks = _tasks.indexOf(task);
+    // Task lastTaskFromBox = box.getAt(box.length - 1);
+    // String lastTaskNameFromBox = lastTaskFromBox.name;
+    //
+    // print('index in _tasks: $indexAtTasks');
+    // print('lastTaskNameFromBox: $lastTaskNameFromBox');
     notifyListeners();
   }
 
-  UnmodifiableListView<Task> getTasks() {
-    return UnmodifiableListView(_tasks);
-  }
+  // UnmodifiableListView<Task> getTasks() {
+  //   return UnmodifiableListView(_tasks);
+  // }
 
-  Task getTaskAt(int index) {
-    return _tasks[index];
-  }
+  // Task getTaskAt(int index) {
+  //   return _tasks[index];
+  // }
 
-  int get taskCount {
-    return _tasks.length;
-  }
+  // int get taskCount {
+  //   return _tasks.length;
+  // }
 
   void deleteTask(int index) {
     // task.isDone = true;
@@ -67,23 +67,23 @@ class TaskData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void startTimer() {
-    if (timer == null || !timer!.isActive) {
-      timer = Timer.periodic(
-        const Duration(seconds: 1),
-        (timer) => minusSecondForAllRunning(),
-      );
-    }
-  }
+  // void startTimer() {
+  //   if (timer == null || !timer!.isActive) {
+  //     timer = Timer.periodic(
+  //       const Duration(seconds: 1),
+  //       (timer) => minusSecondForAllRunning(),
+  //     );
+  //   }
+  // }
 
-  minusSecondForAllRunning() {
-    _tasks.map((task) {
-      if (task.isRunning) {
-        task.minusOneSecond();
-      }
-    });
-    notifyListeners();
-  }
+  // minusSecondForAllRunning() {
+  //   _tasks.map((task) {
+  //     if (task.isRunning) {
+  //       task.minusOneSecond();
+  //     }
+  //   });
+  //   notifyListeners();
+  // }
 
   void toggleRun(Task task) {
     task.toggleRun();

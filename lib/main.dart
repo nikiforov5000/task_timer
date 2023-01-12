@@ -17,14 +17,6 @@ Future<void> main() async {
 
   box = await Hive.openBox('tasksBox');
 
-  Task task = Task(
-      name: 'name',
-      timeTotal: Duration(seconds: 34),
-      timeLeft: Duration(seconds: 10),
-      color: Colors.red.value);
-
-  box.add(task);
-
   runApp(MyApp());
 }
 
