@@ -29,4 +29,9 @@ class TaskData extends ChangeNotifier {
     Hive.close();
     super.dispose();
   }
+
+  void updateTask(int index, Task task) {
+    box.putAt(index, task);
+    notifyListeners();
+  }
 }

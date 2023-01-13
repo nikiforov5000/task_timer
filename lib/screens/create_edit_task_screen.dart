@@ -55,11 +55,8 @@ class _CreateEditTaskScreenState extends State<CreateEditTaskScreen> {
       if (widget.index == -1) {
         Provider.of<TaskData>(context, listen: false).addNewTask(task);
       } else {
-        /// todo implement taskData.updateTask(task)
-        // Provider.of<TaskData>(context, listen: false).addNewTask(task);
-
+        Provider.of<TaskData>(context, listen: false).updateTask(widget.index, task);
       }
-
       Navigator.pop(context);
     }
   }
