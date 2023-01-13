@@ -4,6 +4,7 @@ import 'package:totoey/models/task_data.dart';
 import 'package:totoey/screens/edit_task_screen.dart';
 
 import '../main.dart';
+import '../screens/create_edit_task_screen.dart';
 import 'task_tile.dart';
 
 class TasksList extends StatelessWidget {
@@ -19,13 +20,10 @@ class TasksList extends StatelessWidget {
             return TaskTile(
                 task: task,
                 onLongPress: () {
-                  /// pass index to handle deletion
-                  // taskData.deleteTask(index);
-
                   showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
-                    builder: (context) => EditTaskScreen(index: index),
+                    builder: (context) => CreateEditTaskScreen(index: index),
                   );
                 });
           }),
