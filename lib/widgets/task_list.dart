@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:totoey/models/task_data.dart';
+import 'package:totoey/screens/edit_task_screen.dart';
 
 import '../main.dart';
 import 'task_tile.dart';
@@ -18,7 +19,14 @@ class TasksList extends StatelessWidget {
             return TaskTile(
                 task: task,
                 onLongPress: () {
-                  taskData.deleteTask(index);
+                  /// pass index to handle deletion
+                  // taskData.deleteTask(index);
+
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => EditTaskScreen(index: index),
+                  );
                 });
           }),
         );
@@ -26,3 +34,6 @@ class TasksList extends StatelessWidget {
     );
   }
 }
+
+
+

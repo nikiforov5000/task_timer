@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:totoey/constants.dart';
 import 'package:totoey/models/task_data.dart';
 
-import '../main.dart';
 import '../models/task.dart';
 
 class AddTaskScreen extends StatefulWidget {
