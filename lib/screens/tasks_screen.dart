@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:totoey/constants.dart';
-import 'package:totoey/screens/add_task_screen.dart';
+import 'package:totoey/screens/create_edit_task_screen.dart';
 import 'package:totoey/widgets/task_list.dart';
 
 import '../main.dart';
@@ -20,9 +20,7 @@ class TasksScreen extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (context) => Container(
-              child: AddTaskScreen(),
-            ),
+            builder: (context) => CreateEditTaskScreen(index: -1),
           );
         },
       ),

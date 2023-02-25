@@ -7,32 +7,56 @@ import 'package:totoey/models/task_data.dart';
 import '../main.dart';
 import '../models/task.dart';
 
-class AddTaskScreen extends StatefulWidget {
+class CreateEditTaskScreen extends StatefulWidget {
+  final int index;
+
+  CreateEditTaskScreen({required this.index});
+
   @override
-  State<AddTaskScreen> createState() => _AddTaskScreenState();
+  State<CreateEditTaskScreen> createState() => _CreateEditTaskScreenState();
 }
 
-class _AddTaskScreenState extends State<AddTaskScreen> {
-  String newTaskName = '';
-  late Task newTask;
+class _CreateEditTaskScreenState extends State<CreateEditTaskScreen> {
+  late String _name;
+  late Duration _timeTotal;
+  late Color _color;
+  late Task task;
+  TextEditingController controller = TextEditingController();
 
-  Duration _duration = Duration(seconds: 0);
-  Color _color = TaskColors.getRandomColor();
+  @override
+  void initState() {
+    super.initState();
+    if (widget.index == -1) {
+      _name = '';
+      _timeTotal = Duration(seconds: 0);
+      _color = TaskColors.getRandomColor();
+    } else {
+      task = box.getAt(widget.index);
+      _name = task.name;
+      _timeTotal = task.timeTotal;
+      _color = Color(task.color);
+    }
+    controller.text = _name;
+  }
 
-  void onAddTaskCallback() {
-    if (_duration == Duration(seconds: 0)) {
+  void onAddSaveTaskCallback() {
+    if (_timeTotal == Duration(seconds: 0)) {
       _showMyDialog(context, 'Please enter duration');
-    } else if (newTaskName == '') {
+    } else if (_name == '') {
       _showMyDialog(context, 'Please enter task name');
     } else {
-      newTask = Task(
-        name: newTaskName,
-        timeTotal: _duration,
-        timeLeft: _duration,
+      task = Task(
+        name: _name,
+        timeTotal: _timeTotal,
+        timeLeft: _timeTotal,
         color: _color.value,
       );
-      Provider.of<TaskData>(context, listen: false).addNewTask(newTask);
 
+      if (widget.index == -1) {
+        Provider.of<TaskData>(context, listen: false).addNewTask(task);
+      } else {
+        Provider.of<TaskData>(context, listen: false).updateTask(widget.index, task);
+      }
       Navigator.pop(context);
     }
   }
@@ -49,8 +73,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 1.5),
             child: TextField(
+              controller: controller,
               onChanged: (value) {
-                newTaskName = value;
+                _name = value;
               },
               textAlign: TextAlign.center,
               autofocus: true,
@@ -78,9 +103,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               AddTaskScreenButton(
-                label: 'Add Task',
+                label: widget.index == -1 ? 'Add Task' : 'Save Task',
                 color: _color,
-                onTap: onAddTaskCallback,
+                onTap: onAddSaveTaskCallback,
               ),
               SizedBox(
                 width: 10,
@@ -97,16 +122,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ],
           ),
           DurationPicker(
-            duration: _duration,
+            duration: _timeTotal,
             onChange: (value) {
               setState(() {
-                _duration = value;
+                _timeTotal = value;
               });
             },
           ),
+          widget.index == -1
+              ? Container()
+              : AddTaskScreenButton(
+                  label: 'Delete Task',
+                  color: _color.withOpacity(.5),
+                  onTap: onDeleteCallback)
         ],
       ),
     );
+  }
+
+  onDeleteCallback() {
+    Provider.of<TaskData>(context, listen: false).deleteTask(widget.index);
+    Navigator.pop(context);
   }
 }
 
