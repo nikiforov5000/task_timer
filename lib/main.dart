@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:totoey/models/task_data.dart';
+import 'package:totoey/screens/auth_screen.dart';
 import 'package:totoey/screens/tasks_screen.dart';
 
 import 'durationAdapter.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => TaskData(),
       child: MaterialApp(
-        home: TasksScreen(),
+        home: AuthScreen(),
       ),
     );
   }

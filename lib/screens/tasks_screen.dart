@@ -35,10 +35,7 @@ class TasksScreen extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Task Timer',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50.0,
-                      fontWeight: FontWeight.w100),
+                  style: kLoginHeaderTextStyle,
                 ),
                 Text(
                   '${box.length} tasks',
