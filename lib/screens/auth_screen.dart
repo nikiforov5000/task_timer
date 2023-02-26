@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:totoey/screens/tasks_screen.dart';
 
 import '../constants.dart';
 import 'create_edit_task_screen.dart';
@@ -87,7 +88,7 @@ class AuthScreen extends StatelessWidget {
                         );
                         if (user != null) {
                           print('user != null');
-                          // Navigator.pushNamed(context, EcommerceDemoApp.id);
+                          Navigator.pushNamed(context, TasksScreen.id);
                         }
                       } catch (e) {
                         print(e);
@@ -109,7 +110,7 @@ class AuthScreen extends StatelessWidget {
                           password: password,
                         );
                         if (newUser != null) {
-                          // Navigator.pushNamed(context, EcommerceDemoApp.id);
+                          Navigator.pushNamed(context, TasksScreen.id);
                         }
                       } catch (e) {
                         print(e);
