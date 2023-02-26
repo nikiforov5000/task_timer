@@ -31,7 +31,12 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => TaskData(),
       child: MaterialApp(
-        home: AuthScreen(),
+        initialRoute: AuthScreen.id,
+        routes: {
+          TasksScreen.id: (context) => TasksScreen(),
+          AuthScreen.id: (context) => AuthScreen(),
+        },
+        // home: AuthScreen(),
       ),
     );
   }

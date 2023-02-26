@@ -6,6 +6,7 @@ import 'package:totoey/widgets/task_list.dart';
 import '../main.dart';
 
 class TasksScreen extends StatelessWidget {
+  static String id = '/tasks_screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,6 +10,8 @@ class AuthScreen extends StatelessWidget {
   late String email;
   late String password;
 
+  static String id = '/auth_screen';
+
   @override
   Widget build(BuildContext context) {
     TextEditingController controllerLogin = TextEditingController();
