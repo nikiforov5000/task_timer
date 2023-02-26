@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
 class AuthScreen extends StatelessWidget {
+  final _auth = FirebaseAuth.instance;
+
   late String email;
   late String password;
 
