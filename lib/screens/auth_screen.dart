@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import 'create_edit_task_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
@@ -19,7 +20,6 @@ class AuthScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              Text('Login', style: kLoginHeaderTextStyle,),
               TextField(
                 // controller: controllerLogin,
                 onChanged: (value) {
@@ -43,7 +43,9 @@ class AuthScreen extends StatelessWidget {
                       color: kLightGreyColor, fontWeight: FontWeight.w100),
                 ),
               ),
-              SizedBox(height: 10.0,),
+              SizedBox(
+                height: 10.0,
+              ),
               TextField(
                 // controller: controllerLogin,
                 obscureText: true,
@@ -69,58 +71,50 @@ class AuthScreen extends StatelessWidget {
                       color: kLightGreyColor, fontWeight: FontWeight.w100),
                 ),
               ),
-
-              SizedBox(height: 100,),
-
-              Text('Register', style: kLoginHeaderTextStyle,),
-              TextField(
-                // controller: controllerLogin,
-                onChanged: (value) {
-                  email = value;
-                },
-                textAlign: TextAlign.center,
-                autofocus: true,
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                ),
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        width: 1,
-                        color: kLightGreyColor,
-                      )),
-                  hintText: 'Enter Email',
-                  hintStyle: TextStyle(
-                      color: kLightGreyColor, fontWeight: FontWeight.w100),
-                ),
-              ),
-              SizedBox(height: 10.0,),
-              TextField(
-                // controller: controllerLogin,
-                obscureText: true,
-
-                onChanged: (value) {
-                  password = value;
-                },
-                textAlign: TextAlign.center,
-                autofocus: true,
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                ),
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        width: 1,
-                        color: kLightGreyColor,
-                      )),
-                  hintText: 'Enter Password',
-                  hintStyle: TextStyle(
-                      color: kLightGreyColor, fontWeight: FontWeight.w100),
-                ),
+              Row(
+                children: [
+                  AddTaskScreenButton(
+                    label: 'Login',
+                    color: Colors.green,
+                    onTap: () async {
+                      print(email + ' ' + password);
+                      try {
+                        final user = await _auth.signInWithEmailAndPassword(
+                          email: email,
+                          password: password,
+                        );
+                        if (user != null) {
+                          print('user != null');
+                          // Navigator.pushNamed(context, EcommerceDemoApp.id);
+                        }
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  AddTaskScreenButton(
+                    label: 'Register',
+                    color: Colors.blue,
+                    onTap: () async {
+                      print(email + ' ' + password);
+                      try {
+                        final newUser =
+                            await _auth.createUserWithEmailAndPassword(
+                          email: email,
+                          password: password,
+                        );
+                        if (newUser != null) {
+                          // Navigator.pushNamed(context, EcommerceDemoApp.id);
+                        }
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
+                  ),
+                ],
               ),
             ],
           ),
