@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "154668161903",
+    "project_id": "task-timer-63aa2",
+    "storage_bucket": "task-timer-63aa2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154668161903:android:2fdb71659120d69293e69a",
+        "android_client_info": {
+          "package_name": "com.example.totoey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154668161903-r3qamqrd05r30menca399o5te8q8on6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiEufqr0yW-gibuaGwac1OdHOISvwGi5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154668161903-r3qamqrd05r30menca399o5te8q8on6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
