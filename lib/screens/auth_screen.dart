@@ -18,9 +18,6 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controllerLogin = TextEditingController();
-    TextEditingController controllerRegister = TextEditingController();
-
     return Scaffold(
       body: Container(
         color: kDarkGreyColor,
@@ -37,7 +34,6 @@ class AuthScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       TextField(
-                        // controller: controllerLogin,
                         onChanged: (value) {
                           email = value;
                         },
@@ -64,9 +60,7 @@ class AuthScreen extends StatelessWidget {
                         height: 10.0,
                       ),
                       TextField(
-                        // controller: controllerLogin,
                         obscureText: true,
-
                         onChanged: (value) {
                           password = value;
                         },
@@ -98,7 +92,6 @@ class AuthScreen extends StatelessWidget {
                             label: 'Login',
                             color: Colors.green,
                             onTap: () async {
-                              print(email + ' ' + password);
                               try {
                                 final user =
                                     await _auth.signInWithEmailAndPassword(
@@ -121,7 +114,6 @@ class AuthScreen extends StatelessWidget {
                             label: 'Register',
                             color: Colors.blue,
                             onTap: () async {
-                              print(email + ' ' + password);
                               try {
                                 final newUser =
                                     await _auth.createUserWithEmailAndPassword(
@@ -152,34 +144,7 @@ class AuthScreen extends StatelessWidget {
                   label: 'Sign-in with Google',
                   color: Colors.blue,
                   onTap: () async {
-                    print('Register with Google');
-                    try {
-                      final googleUser = await _googleSignIn.signIn();
-                      if (googleUser != null) {
-                        // Google Sign-In successful, now create user account in Firebase
-                        final googleAuth = await googleUser.authentication;
-                        final credential = GoogleAuthProvider.credential(
-                          accessToken: googleAuth.accessToken,
-                          idToken: googleAuth.idToken,
-                        );
-                        final userCredential =
-                            await _auth.signInWithCredential(credential);
-
-                        // Create user account in Firebase if it doesn't already exist
-                        if (userCredential.additionalUserInfo!.isNewUser) {
-                          final currentUser = _auth.currentUser;
-                          if (currentUser != null) {
-                            await currentUser
-                                .updateDisplayName(googleUser.displayName);
-                          }
-                        }
-
-                        Navigator.pushNamed(context, TasksScreen.id);
-                      }
-                    } catch (e) {
-                      print('catch');
-                      print(e);
-                    }
+                    await onGoogleSignIn(context);
                   },
                 ),
               ],
@@ -188,5 +153,33 @@ class AuthScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> onGoogleSignIn(BuildContext context) async {
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        // Google Sign-In successful, now create user account in Firebase
+        final googleAuth = await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        final userCredential = await _auth.signInWithCredential(credential);
+
+        // Create user account in Firebase if it doesn't already exist
+        if (userCredential.additionalUserInfo!.isNewUser) {
+          final currentUser = _auth.currentUser;
+          if (currentUser != null) {
+            await currentUser.updateDisplayName(googleUser.displayName);
+          }
+        }
+
+        Navigator.pushNamed(context, TasksScreen.id);
+      }
+    } catch (e) {
+      print('catch');
+      print(e);
+    }
   }
 }
