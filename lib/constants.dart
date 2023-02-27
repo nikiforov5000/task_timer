@@ -13,6 +13,11 @@ TextStyle kDisabledTaskTitleTextStyle = kEnabledTaskTitleTextStyle.copyWith(
   color: kSemiLightGreyColor,
 );
 
+const kLoginHeaderTextStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 50.0,
+    fontWeight: FontWeight.w100);
+
 const kDarkGreyColor = Color(0xff202020);
 const kSemiDarkGreyColor = Color(0xff323232);
 const kMidGreyColor = Color(0xff3b3b3b);

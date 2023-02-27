@@ -4,8 +4,10 @@ import 'package:totoey/screens/create_edit_task_screen.dart';
 import 'package:totoey/widgets/task_list.dart';
 
 import '../main.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class TasksScreen extends StatelessWidget {
+  static String id = '/tasks_screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +37,7 @@ class TasksScreen extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Task Timer',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50.0,
-                      fontWeight: FontWeight.w100),
+                  style: kLoginHeaderTextStyle,
                 ),
                 Text(
                   '${box.length} tasks',
